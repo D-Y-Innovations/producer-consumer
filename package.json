@@ -1,0 +1,23 @@
+{
+  "name": "producer-consumer",
+  "version": "0.0.0",
+  "description": "",
+  "main": "Model.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/D-Y-Innovations/producer-consumer.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/D-Y-Innovations/producer-consumer/issues"
+  },
+  "homepage": "https://github.com/D-Y-Innovations/producer-consumer#readme",
+  "dependencies": {
+    "co": "^4.6.0"
+  }
+}
