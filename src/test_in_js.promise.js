@@ -1,11 +1,12 @@
 const Model = require("./Model").Model
+const Utils = require("./Model").Utils
 
 const co = require("co")
 
 const m = Model.build(100, (job, thread_id) => 
     new Promise((resolve, reject) => {
         console.log("hi", {job, thread_id})
-        Model.sleep(1000).then(resolve).catch(reject)
+        Utils.sleep(1000).then(resolve).catch(reject)
     })
 )
 

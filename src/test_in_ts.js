@@ -12,7 +12,7 @@ const Model_1 = require("./Model");
 console.log("build");
 const m = Model_1.Model.build(100, (job, thread_id) => __awaiter(this, void 0, void 0, function* () {
     console.log("hi", { job, thread_id });
-    yield Model_1.Model.sleep(1000);
+    yield Model_1.Utils.sleep(1000);
 }));
 for (var i = 0; i < 1000; i++) {
     m.addJob(i);
