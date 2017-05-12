@@ -1,10 +1,12 @@
 {
   "name": "producer-consumer",
-  "version": "0.0.1",
+  "version": "0.1.1",
   "description": "",
   "main": "./src/Model.js",
+  "typings": "./src/Model.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node src/test_in_js.js && node src/test_in_ts.js",
+    "ts": "./node_modules/.bin/tsc"
   },
   "repository": {
     "type": "git",
@@ -17,7 +19,9 @@
     "url": "https://github.com/D-Y-Innovations/producer-consumer/issues"
   },
   "homepage": "https://github.com/D-Y-Innovations/producer-consumer#readme",
-  "dependencies": {
+
+  "devDependencies": {
+    "typescript": "^2.3.2",
     "co": "^4.6.0"
   }
 }

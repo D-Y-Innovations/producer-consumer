@@ -1,64 +1,60 @@
-
-class Thread{
-    constructor(runnable){
-        this.runnable = runnable
+"use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+class Thread {
+    constructor(runnable) {
+        this.runnable = runnable;
     }
-
-    *run(){
-        while (yield this.runnable()){}
+    run() {
+        return __awaiter(this, void 0, void 0, function* () {
+            while (yield this.runnable()) { }
+        });
     }
 }
-
-const co = require("co")
-
-class Model{
-
-    constructor(exceptionHandler){
-        this.queue = []
-        this.idle = []
-
-        this.exceptionHandler = exceptionHandler
+class Model {
+    constructor() {
+        this.queue = [];
+        this.idle = [];
     }
-
-    static *sleep(timeout){
-        return new Promise(function(resolve, reject){
-            setTimeout(()=>{
-                resolve()
-            }, timeout)
-        })
+    static sleep(timeout) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return new Promise(function (resolve, reject) {
+                setTimeout(() => {
+                    resolve();
+                }, timeout);
+            });
+        });
     }
-
-    static build(consumer_number, consumer_function, timeout=1000, exceptionHandler = console.log.bind(console)){
-        const model = new Model(exceptionHandler)
-        for (let i=0; i<consumer_number; ++i){
-            let thread = new Thread(function *(){
-                const job = model.queue.shift()
-                if (job === undefined) { 
-                    model.idle.push(thread)
-                    return false
+    static build(consumer_number, consumer_function) {
+        const model = new Model();
+        for (let i = 0; i < consumer_number; ++i) {
+            let thread = new Thread(() => __awaiter(this, void 0, void 0, function* () {
+                const job = model.queue.shift();
+                if (job === undefined) {
+                    model.idle.push(thread);
+                    return false;
                 }
-                yield consumer_function(job, i)
-                return true
-            })
-            model.idle.push(thread)
+                yield consumer_function(job, i);
+                return true;
+            }));
+            model.idle.push(thread);
         }
-        return model
+        return model;
     }
-
-    stop(){
-        for (var i in this.threads){
-            const t = this.threads[i]
-            t.isRunning = false
-        }
+    addJob(job) {
+        return __awaiter(this, void 0, void 0, function* () {
+            this.queue.push(job);
+            const t = this.idle.shift();
+            if (t !== undefined)
+                yield t.run();
+        });
     }
-
-    addJob(job){
-        this.queue.push(job)
-        const t = this.idle.shift()
-        // console.log("Fetch thread", t)
-        if (t !== undefined) co(t.run(this.exceptionHandler))
-    }
-
 }
-
-module.exports = Model
+exports.Model = Model;
