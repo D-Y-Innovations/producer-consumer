@@ -5,29 +5,41 @@ export class Model<JOB_TYPE>{
     queue: Array<JOB_TYPE> = []
     idle: Array<Runnable> = []
 
+    isRunning = true
+    shutdown(){
+        this.isRunning = false
+    }
+
     constructor(
         consumer_number: number,
         consumer_function: (job: JOB_TYPE, thread_idx: number)=>Promise<void>
     ){
         for (let thread_idx=0; thread_idx<consumer_number; ++thread_idx){
             let thread = async () => {
-                while (true) {
-                    const job = this.queue.shift()
-                    if (job === undefined) {
-                        this.idle.push(thread)
-                        break
+                try{
+                    while (this.isRunning) {
+                        const job = this.queue.shift()
+                        if (job === undefined) {
+                            break
+                        }
+                        await consumer_function(job, thread_idx)
                     }
-                    await consumer_function(job, thread_idx)
+                } finally {
+                    this.idle.push(thread)
                 }
             }
             this.idle.push(thread)
         }
     }
 
-    async addJob(job: JOB_TYPE){
+    addJob(job: JOB_TYPE): boolean{
+        if (! this.isRunning){
+            return false
+        }
         this.queue.push(job)
         const t = this.idle.shift()
-        if (t !== undefined) await t()
+        if (t !== undefined) t()
+        return true
     }
 
     build(consumer_number: number){
