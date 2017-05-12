@@ -8,10 +8,23 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-class _Model {
-    constructor() {
+class Model {
+    constructor(consumer_number, consumer_function) {
         this.queue = [];
         this.idle = [];
+        for (let thread_idx = 0; thread_idx < consumer_number; ++thread_idx) {
+            let thread = () => __awaiter(this, void 0, void 0, function* () {
+                while (true) {
+                    const job = this.queue.shift();
+                    if (job === undefined) {
+                        this.idle.push(thread);
+                        break;
+                    }
+                    yield consumer_function(job, thread_idx);
+                }
+            });
+            this.idle.push(thread);
+        }
     }
     addJob(job) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -21,27 +34,8 @@ class _Model {
                 yield t();
         });
     }
-}
-class Model extends _Model {
-    static build(consumer_number, consumer_function) {
-        const model = new Model();
-        for (let thread_idx = 0; thread_idx < consumer_number; ++thread_idx) {
-            let thread = () => __awaiter(this, void 0, void 0, function* () {
-                while (true) {
-                    const job = model.queue.shift();
-                    if (job === undefined) {
-                        model.idle.push(thread);
-                        break;
-                    }
-                    yield consumer_function(job, thread_idx);
-                }
-            });
-            model.idle.push(thread);
-        }
-        return model;
-    }
-    static buildFuncModel(consumer_number) {
-        return Model.build(consumer_number, (job, thread_idx) => job(thread_idx));
+    build(consumer_number) {
+        return new Model(consumer_number, (job, thread_idx) => job(thread_idx));
     }
 }
 exports.Model = Model;

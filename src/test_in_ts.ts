@@ -3,7 +3,7 @@ import { Model, Utils } from "./Model"
 
 console.log("build")
 
-const m = Model.build(100, async (job, thread_id) => {
+const m = new Model(100, async (job: number, thread_id: number) => {
     console.log("hi", {job, thread_id})
     await Utils.sleep(1000)
 })

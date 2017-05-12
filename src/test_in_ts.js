@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const Model_1 = require("./Model");
 console.log("build");
-const m = Model_1.Model.build(100, (job, thread_id) => __awaiter(this, void 0, void 0, function* () {
+const m = new Model_1.Model(100, (job, thread_id) => __awaiter(this, void 0, void 0, function* () {
     console.log("hi", { job, thread_id });
     yield Model_1.Utils.sleep(1000);
 }));
