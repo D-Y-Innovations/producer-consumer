@@ -11,7 +11,7 @@ export class Model<JOB_TYPE>{
     }
 
     constructor(
-        consumer_number: number,
+        public consumer_number: number,
         consumer_function: (job: JOB_TYPE, thread_idx: number)=>Promise<void>
     ){
         for (let thread_idx=0; thread_idx<consumer_number; ++thread_idx){
@@ -39,6 +39,19 @@ export class Model<JOB_TYPE>{
         this.queue.push(job)
         const t = this.idle.shift()
         if (t !== undefined) t()
+        return true
+    }
+
+    // default maximum_waiting_mills is undefined, means waiting forever
+    async waitUntilAllDone(
+        maximum_waiting_mills: number = undefined,
+        check_interval_mills: number = 100){
+        
+        const end = Date.now() + maximum_waiting_mills
+        while (this.idle.length < this.consumer_number){
+            if (Date.now() > end) return false
+            await Utils.sleep(check_interval_mills)
+        }
         return true
     }
 
