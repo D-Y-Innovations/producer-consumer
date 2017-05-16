@@ -57,7 +57,7 @@ class Model {
             return true;
         });
     }
-    build(consumer_number) {
+    static build(consumer_number) {
         return new Model(consumer_number, (job, thread_idx) => job(thread_idx));
     }
 }

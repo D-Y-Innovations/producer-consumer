@@ -55,7 +55,7 @@ export class Model<JOB_TYPE>{
         return true
     }
 
-    build(consumer_number: number){
+    static build(consumer_number: number){
         return new Model(
             consumer_number,
             (job: RunnableWithThreadIndex, thread_idx: number) => job(thread_idx))
