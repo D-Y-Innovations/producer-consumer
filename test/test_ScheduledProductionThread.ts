@@ -1,5 +1,5 @@
-import { Model, Utils } from "./Model"
-import { ScheduledProductionThread } from "./Patterns"
+import { Model, Utils } from "../src/Model"
+import { ScheduledProductionThread } from "../src/Patterns"
 
 const c = new ScheduledProductionThread<number>(
     async (model: Model<number>)=>{

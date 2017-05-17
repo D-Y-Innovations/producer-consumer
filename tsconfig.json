@@ -4,9 +4,13 @@
         "target": "es2015",
         "noImplicitAny": false,
         "sourceMap": false,
-        "rootDir": "./src"
+        "rootDirs": [
+            "./src",
+            "./test"
+        ]
     },
     "include": [
-            "./src/*.ts"
+            "./src/*.ts",
+            "./test/*.ts"
     ]
 }

@@ -1,4 +1,4 @@
-import { Model, Utils } from "./Model"
+import { Model, Utils } from "../src/Model"
 
 
 console.log("build")

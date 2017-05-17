@@ -8,8 +8,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const Model_1 = require("./Model");
-const Patterns_1 = require("./Patterns");
+const Model_1 = require("../src/Model");
+const Patterns_1 = require("../src/Patterns");
 const c = new Patterns_1.ScheduledProductionThread((model) => __awaiter(this, void 0, void 0, function* () {
     for (let i = 0; i < 100; ++i) {
         model.addJob(i);

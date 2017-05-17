@@ -1,5 +1,5 @@
-const Model = require("./Model").Model
-const Utils = require("./Model").Utils
+const Model = require("../src/Model").Model
+const Utils = require("../src/Model").Utils
 
 const co = require("co")
 
