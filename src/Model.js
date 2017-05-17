@@ -22,7 +22,12 @@ class Model {
                         if (job === undefined) {
                             break;
                         }
-                        yield consumer_function(job, thread_idx);
+                        try {
+                            yield consumer_function(job, thread_idx);
+                        }
+                        catch (err) {
+                            console.error(err);
+                        }
                     }
                 }
                 finally {

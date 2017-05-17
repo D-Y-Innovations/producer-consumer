@@ -21,7 +21,12 @@ class ScheduledProductionThread {
     start(interval_millis = 1000) {
         return __awaiter(this, void 0, void 0, function* () {
             while (this.model.isRunning) {
-                yield this.productionFunc(this.model);
+                try {
+                    yield this.productionFunc(this.model);
+                }
+                catch (err) {
+                    console.error(err);
+                }
                 yield Model_1.Utils.sleep(1000);
             }
         });
@@ -43,7 +48,7 @@ class Scheduler {
                     yield this.func();
                 }
                 catch (err) {
-                    console.log(err);
+                    console.error(err);
                 }
                 yield Model_1.Utils.sleep(interval_millis);
             }
