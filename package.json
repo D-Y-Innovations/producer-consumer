@@ -2,8 +2,8 @@
   "name": "producer-consumer",
   "version": "0.1.1",
   "description": "",
-  "main": "./src/Model.js",
-  "typings": "./src/Model.ts",
+  "main": "./src/Patterns.js",
+  "typings": "./src/Patterns.ts",
   "scripts": {
     "test": "node src/test_in_js.js && node src/test_in_ts.js",
     "ts": "./node_modules/.bin/tsc"

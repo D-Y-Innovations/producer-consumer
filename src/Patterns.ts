@@ -1,5 +1,7 @@
 import { Model, Utils } from "./Model"
 
+export { Model as ConsumersModel }
+
 export class ScheduledProductionThread<JOB_TYPE>{
 
     private model : Model<JOB_TYPE>

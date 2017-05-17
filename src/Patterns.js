@@ -9,6 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const Model_1 = require("./Model");
+exports.ConsumersModel = Model_1.Model;
 class ScheduledProductionThread {
     constructor(productionFunc, consumerNum, consumer) {
         this.productionFunc = productionFunc;
