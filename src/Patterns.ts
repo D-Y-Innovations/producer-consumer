@@ -15,14 +15,14 @@ export class ScheduledProductionThread<JOB_TYPE>{
         this.model = new Model<JOB_TYPE>(consumerNum, consumer)
     }
 
-    async run(interval_millis=1000){
+    async start(interval_millis=1000){
         while (this.model.isRunning){
             await this.productionFunc(this.model)
             await Utils.sleep(1000)
         }
     }
 
-    close(){
+    stop(){
         this.model.shutdown()
     }
 
@@ -40,7 +40,7 @@ export class Scheduler{
         }
     }
 
-    shutdown(){
+    stop(){
         this.isRunning = false
     }
 

@@ -10,6 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const Model_1 = require("./Model");
 exports.ConsumersModel = Model_1.Model;
+exports.Utils = Model_1.Utils;
 class ScheduledProductionThread {
     constructor(productionFunc, consumerNum, consumer) {
         this.productionFunc = productionFunc;
@@ -17,7 +18,7 @@ class ScheduledProductionThread {
         this.consumer = consumer;
         this.model = new Model_1.Model(consumerNum, consumer);
     }
-    run(interval_millis = 1000) {
+    start(interval_millis = 1000) {
         return __awaiter(this, void 0, void 0, function* () {
             while (this.model.isRunning) {
                 yield this.productionFunc(this.model);
@@ -25,7 +26,7 @@ class ScheduledProductionThread {
             }
         });
     }
-    close() {
+    stop() {
         this.model.shutdown();
     }
 }
@@ -43,7 +44,7 @@ class Scheduler {
             }
         });
     }
-    shutdown() {
+    stop() {
         this.isRunning = false;
     }
     static start(func, interval_millis = 1000) {

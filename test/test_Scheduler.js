@@ -11,4 +11,5 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const Patterns_1 = require("../src/Patterns");
 Patterns_1.Scheduler.start(() => __awaiter(this, void 0, void 0, function* () {
     console.log("hello");
+    yield Patterns_1.Utils.sleep(3000);
 }), 1000);

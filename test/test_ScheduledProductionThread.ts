@@ -13,10 +13,10 @@ const c = new ScheduledProductionThread<number>(
         await Utils.sleep(1000)
     })
 
-c.run().then(()=>{
+c.start().then(()=>{
     console.log("Closed")
 })
 
 setTimeout(()=>{
-    c.close()
+    c.stop()
 }, 5000)

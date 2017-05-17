@@ -18,9 +18,9 @@ const c = new Patterns_1.ScheduledProductionThread((model) => __awaiter(this, vo
     console.log("ScheduledProductionThread ", job);
     yield Model_1.Utils.sleep(1000);
 }));
-c.run().then(() => {
+c.start().then(() => {
     console.log("Closed");
 });
 setTimeout(() => {
-    c.close();
+    c.stop();
 }, 5000);
