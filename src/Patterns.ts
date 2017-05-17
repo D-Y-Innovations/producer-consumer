@@ -1,7 +1,7 @@
 import { Model, Utils } from "./Model"
 
 export { Model as ConsumersModel }
-export { Utils }
+export { Utils as Utils }
 
 export class ScheduledProductionThread<JOB_TYPE>{
 
@@ -17,7 +17,11 @@ export class ScheduledProductionThread<JOB_TYPE>{
 
     async start(interval_millis=1000){
         while (this.model.isRunning){
-            await this.productionFunc(this.model)
+            try{
+                await this.productionFunc(this.model)
+            } catch (err) {
+                console.error(err)
+            }
             await Utils.sleep(1000)
         }
     }
@@ -35,7 +39,11 @@ export class Scheduler{
 
     async start(interval_millis = 1000){
         while (this.isRunning){
-            await this.func()
+            try {
+                await this.func()
+            } catch(err){
+                console.error(err)
+            }
             await Utils.sleep(interval_millis)
         }
     }

@@ -39,7 +39,12 @@ class Scheduler {
     start(interval_millis = 1000) {
         return __awaiter(this, void 0, void 0, function* () {
             while (this.isRunning) {
-                yield this.func();
+                try {
+                    yield this.func();
+                }
+                catch (err) {
+                    console.log(err);
+                }
                 yield Model_1.Utils.sleep(interval_millis);
             }
         });

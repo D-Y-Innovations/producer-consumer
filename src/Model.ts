@@ -22,7 +22,11 @@ export class Model<JOB_TYPE>{
                         if (job === undefined) {
                             break
                         }
-                        await consumer_function(job, thread_idx)
+                        try{
+                            await consumer_function(job, thread_idx)
+                        }catch(err){
+                            console.error(err)
+                        }
                     }
                 } finally {
                     this.idle.push(thread)
