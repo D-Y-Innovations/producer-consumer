@@ -26,3 +26,26 @@ export class ScheduledProductionThread<JOB_TYPE>{
     }
 
 }
+
+export class Scheduler{
+
+    public isRunning = true
+    constructor(private func: ()=>Promise<void>){}
+
+    async start(interval_millis = 1000){
+        while (this.isRunning){
+            await this.func()
+            await Utils.sleep(interval_millis)
+        }
+    }
+
+    shutdown(){
+        this.isRunning = false
+    }
+
+    static start(func: ()=>Promise<void>, interval_millis = 1000){
+        const s = new Scheduler(func)
+        s.start()
+        return s
+    }
+}

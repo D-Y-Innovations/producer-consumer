@@ -30,3 +30,26 @@ class ScheduledProductionThread {
     }
 }
 exports.ScheduledProductionThread = ScheduledProductionThread;
+class Scheduler {
+    constructor(func) {
+        this.func = func;
+        this.isRunning = true;
+    }
+    start(interval_millis = 1000) {
+        return __awaiter(this, void 0, void 0, function* () {
+            while (this.isRunning) {
+                yield this.func();
+                yield Model_1.Utils.sleep(interval_millis);
+            }
+        });
+    }
+    shutdown() {
+        this.isRunning = false;
+    }
+    static start(func, interval_millis = 1000) {
+        const s = new Scheduler(func);
+        s.start();
+        return s;
+    }
+}
+exports.Scheduler = Scheduler;
