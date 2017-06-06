@@ -22,7 +22,7 @@ export class ScheduledProductionThread<JOB_TYPE>{
             } catch (err) {
                 console.error(err)
             }
-            await Utils.sleep(1000)
+            await Utils.sleep(interval_millis)
         }
     }
 
