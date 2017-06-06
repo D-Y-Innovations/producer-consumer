@@ -27,7 +27,7 @@ class ScheduledProductionThread {
                 catch (err) {
                     console.error(err);
                 }
-                yield Model_1.Utils.sleep(1000);
+                yield Model_1.Utils.sleep(interval_millis);
             }
         });
     }
